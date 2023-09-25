@@ -1,0 +1,53 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      old-version:
+        type: string
+        description: Manually specify new version number
+      new-version:
+        type: string
+        description: Manually specify new version number
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        run: echo "Setting up Node 18.x..."
+
+      - name: Install Dependencies
+        run: echo "Installing dependencies..."
+
+      - name: Create Release Branch
+        run: git checkout -b release/${{inputs.new-version}} develop
+
+      - name: Update Version
+        run: sed -i 's/${{inputs.old-version}}/${{inputs.new-version}}/g' ./index.html
+
+      - name: Commit Version Update
+        run: git commit -a -m "Updated version"
+
+      - name: Merge Release Branch Into Main
+        run: |
+          git checkout main
+          git merge release/${{inputs.new-version}}
+          git branch -d release/${{inputs.new-version}}
+
+      - name: Tag HEAD
+        run: git tag ${{inputs.new-version}}
+
+      - name: Merge Tag Into Develop
+        run: |
+          git checkout develop
+          git merge ${{inputs.new-version}}
+
+      - name: Push Changes
+        run: git push --atomic origin main develop ${{inputs.new-version}}
