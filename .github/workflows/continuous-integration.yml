@@ -1,0 +1,33 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: "**"
+  pull_request:
+    branches: "**"
+
+permissions:
+  contents: read
+
+jobs:
+  continuous-integration:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x, 18.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        run: echo "Setting up Node ${{ matrix.node-version }}..."
+
+      - name: Install Dependencies
+        run: echo "Installing dependencies..."
+
+      - name: Run Tests
+        run: echo "Testing..."

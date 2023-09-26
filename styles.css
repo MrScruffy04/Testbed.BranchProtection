@@ -2,11 +2,27 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-header {
+article section {
+  margin: 0 0 2em;
+}
+
+.article-header > * {
+  margin: 0
+}
+
+.article-header header.title {
   font-size: large;
   font-weight: bold;
 }
 
-address {
-  font-size: x-small;
+.article-header address {
+  font-size: small;
+}
+
+.article-header .dateline {
+  font-size: small;
+}
+
+.article-header time {
+  font-weight: bold;
 }
