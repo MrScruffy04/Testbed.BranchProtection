@@ -16,9 +16,14 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Config User
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - name: Setup Node.js
         run: echo "Setting up Node 18.x..."
