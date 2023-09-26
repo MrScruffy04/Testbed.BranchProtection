@@ -54,5 +54,6 @@ jobs:
           git checkout develop
           git merge ${{inputs.new-version}}
 
+      # Fails due to branch protection. Use API (https://github.com/orgs/community/discussions/25305)???
       - name: Push Changes
         run: git push --atomic origin main develop ${{inputs.new-version}}
