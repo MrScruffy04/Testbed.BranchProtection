@@ -5,7 +5,7 @@ on:
     inputs:
       old-version:
         type: string
-        description: Manually specify new version number
+        description: Manually specify old version number
       new-version:
         type: string
         description: Manually specify new version number
